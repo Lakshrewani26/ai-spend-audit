@@ -68,10 +68,10 @@ All prices verified during submission week. Sources below.
 
 ## Gemini (Google)
 ### Individual Plans
-- Free: $0 — https://gemini.google.com — verified 2026-05-07
-- Google AI Plus: $4.99/user/month — https://gemini.google.com — verified 2026-05-07
-- Google AI Pro: $19.99/user/month — https://gemini.google.com — verified 2026-05-07
-- Google AI Ultra: $249.99/user/month — https://gemini.google.com — verified 2026-05-07
+- Free: $0 — https://gemini.google/subscriptions — verified 2026-05-07
+- Google AI Plus: $4.99/user/month — https://gemini.google/subscriptions/ — verified 2026-05-07
+- Google AI Pro: $19.99/user/month — https://gemini.google/subscriptions/ — verified 2026-05-07
+- Google AI Ultra: $249.99/user/month — https://gemini.google/subscriptions/ — verified 2026-05-07
 
 ## Windsurf
 ### Individual Plans
