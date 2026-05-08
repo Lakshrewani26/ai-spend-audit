@@ -17,3 +17,23 @@ None today, setup went smoothly.
 **Plan for tomorrow:** 
 Build the spend input form with tool selector, plan dropdowns, seats and monthly spend inputs. 
 Add localStorage persistence for form state.
+
+## Day 2 — 2026-05-08
+
+**Hours Worked:**
+1.15
+
+**What I did:**
+Built the spend input form with tool selector, plan dropdowns, seats and monthly spend inputs. 
+Added localStorage persistence so form state survives page reloads. 
+Added dynamic add/remove tool rows and basic form validation.
+
+**What I learned:**
+Learned how to use React useState and useEffect together to sync form data with localStorage. 
+Also learned how to dynamically update dropdown options based on another dropdown's value.
+
+**Blockers / what I'm stuck on:**
+None today.
+
+**Plan for tomorrow:**
+Build the audit engine — the core logic that calculates savings for each tool based on plan, seats and use case.
