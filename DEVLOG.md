@@ -44,7 +44,7 @@ Build the audit engine — the core logic that calculates savings for each tool 
 0
 
 **What I did:** 
-Nothing — was not at home today.
+Nothing — was not at home today. 
 
 **What I learned:** 
 N/A
