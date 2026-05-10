@@ -37,3 +37,20 @@ None today.
 
 **Plan for tomorrow:**
 Build the audit engine — the core logic that calculates savings for each tool based on plan, seats and use case.
+
+## Day 3 — 2026-05-09
+
+**Hours worked:** 
+0
+
+**What I did:** 
+Nothing — was not at home today.
+
+**What I learned:** 
+N/A
+
+**Blockers / what I'm stuck on:** 
+N/A
+
+**Plan for tomorrow:** 
+Build the audit engine with per-tool rules, write 5 unit tests covering the core logic, and build the results page that shows per-tool savings breakdown with total monthly and annual savings. Also create shareable unique URL for each audit.
