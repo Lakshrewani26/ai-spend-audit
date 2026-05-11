@@ -54,3 +54,22 @@ N/A
 
 **Plan for tomorrow:** 
 Build the audit engine with per-tool rules, write 5 unit tests covering the core logic, and build the results page that shows per-tool savings breakdown with total monthly and annual savings. Also create shareable unique URL for each audit.
+
+## Day 4 — 2026-05-10
+
+**Hours worked:**
+5.45
+
+**What I did:** 
+Built the audit engine with 4 rules — wrong plan for team size, redundant coding tools, cheaper alternatives, and overspend detection. Wrote 5 passing unit tests. 
+Built the results page showing per-tool savings breakdown, total monthly and annual savings, Credex CTA for high savers, and shareable unique URL. 
+Fixed window is not defined error in ShareButton using useEffect.
+
+**What I learned:** 
+Learned that window object is not available during server side rendering in Next.js. Client components that use browser APIs must access them inside useEffect. Also learned how to write unit tests with Jest and ts-jest for TypeScript.
+
+**Blockers / what I'm stuck on:** 
+Window is not defined error in ShareButton — fixed by moving window access into useEffect.
+
+**Plan for tomorrow:** 
+Add email capture form on results page, store leads in Supabase, integrate Anthropic API for personalized audit summary, set up Resend for transactional emails.
