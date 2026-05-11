@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { runAudit } from "@/lib/auditEngine"
 
 const TOOLS = [
   "Cursor",
@@ -47,6 +49,8 @@ const defaultForm: FormData = {
 
 export default function AuditForm() {
   const [formData, setFormData] = useState<FormData>(defaultForm)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const saved = localStorage.getItem("auditForm")
@@ -79,6 +83,40 @@ export default function AuditForm() {
       return { ...prev, tools }
     })
   }
+
+const handleSubmit = async () => {
+  setLoading(true)
+  try {
+    const audit = runAudit(formData.tools, formData.teamSize, formData.useCase)
+    
+    // Generate unique ID
+    const id = Math.random().toString(36).substring(2, 8)
+    
+    // Save to Supabase
+    const { createClient } = await import("@supabase/supabase-js")
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    
+    await supabase.from("audits").insert({
+      id,
+      tools: formData.tools,
+      team_size: formData.teamSize,
+      use_case: formData.useCase,
+      savings_monthly: audit.totalMonthlySavings,
+      savings_annual: audit.totalAnnualSavings,
+    })
+    
+    // Redirect to results page
+    router.push(`/audit/${id}`)
+  } catch (error) {
+    console.error(error)
+    alert("Something went wrong. Please try again.")
+  } finally {
+    setLoading(false)
+  }
+}
 
   return (
     <div className="max-w-2xl mx-auto mt-10 bg-white rounded-xl shadow p-6">
@@ -174,8 +212,12 @@ export default function AuditForm() {
         </div>
       </div>
 
-      <button className="w-full bg-black text-white rounded-lg p-3 font-medium hover:bg-gray-800">
-        Generate My Audit →
+      <button
+        onClick={handleSubmit}
+        disabled={loading}
+        className="w-full bg-black text-white rounded-lg p-3 font-medium hover:bg-gray-800 disabled:opacity-50"
+      >
+      {loading ? "Generating..." : "Generate My Audit →"}
       </button>
     </div>
   )
