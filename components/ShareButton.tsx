@@ -6,8 +6,9 @@ export default function ShareButton({ id }: { id: string }) {
   const [url, setUrl] = useState("")
 
  useEffect(() => {
-  setUrl(`${window.location.origin}/audit/${id}`)
- }, [id]) 
+  const url = `${window.location.origin}/audit/${id}`
+  setTimeout(() => setUrl(url), 0)
+ }, [id])
 
   return (
     <div className="flex gap-2">

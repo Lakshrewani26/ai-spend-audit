@@ -54,7 +54,10 @@ export default function AuditForm() {
 
   useEffect(() => {
     const saved = localStorage.getItem("auditForm")
-    if (saved) setFormData(JSON.parse(saved))
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      setTimeout(() => setFormData(parsed), 0)
+    }
   }, [])
 
   useEffect(() => {
