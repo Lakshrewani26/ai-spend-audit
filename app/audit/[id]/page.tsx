@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import ShareButton from "@/components/ShareButton"
 import EmailCapture from "@/components/EmailCapture"
 import AuditSummary from "@/components/AuditSummary"
+import Link from "next/link"
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -138,8 +139,8 @@ export default async function AuditPage({ params }: { params: Promise<{ id: stri
           <ShareButton id={id} />
         </div>
 
-        <a href="/" className="block text-center text-gray-500 hover:text-gray-700 text-sm">Run another audit</a>
-
+        <Link href="/" className="block text-center text-gray-500 hover:text-gray-700 text-sm">Run another audit</Link>
+        
       </div>
     </main>
   )

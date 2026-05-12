@@ -32,7 +32,7 @@ export default function AuditSummary({ tools, useCase, teamSize, totalMonthlySav
       }
     }
     fetchSummary()
-  }, [])
+  }, [tools, useCase, teamSize, totalMonthlySavings, results])
 
   return (
     <div className="bg-white rounded-xl shadow p-6 mb-6">
