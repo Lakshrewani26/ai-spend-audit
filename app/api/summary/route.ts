@@ -54,7 +54,9 @@ Write a friendly, specific, actionable 100-word summary. Be direct and mention s
   } catch (error) {
     console.error("Anthropic API error:", error)
 
-    const fallback = `Based on your audit, your team of ${teamSize} could save $${totalMonthlySavings}/month on AI tools. Your ${useCase} focused stack has been analyzed and we have identified key optimization opportunities. By switching to more cost-effective plans and eliminating redundant tools, you can significantly reduce your monthly AI spend while maintaining the same productivity. Consider implementing these changes this month to start saving immediately.`
+    const fallback = totalMonthlySavings === 0
+     ? `Great news! Your team of ${teamSize} is already spending optimally on AI tools. Your ${useCase} focused stack has been reviewed and every tool is on the right plan for your usage. There are no immediate savings opportunities — you are making smart decisions with your AI budget. We will notify you if better options become available.`
+     : `Based on your audit, your team of ${teamSize} could save $${totalMonthlySavings}/month on AI tools. Your ${useCase} focused stack has been analyzed and we have identified key optimization opportunities. By switching to more cost-effective plans and eliminating redundant tools, you can significantly reduce your monthly AI spend while maintaining the same productivity. Consider implementing these changes this month to start saving immediately.`
 
     return NextResponse.json({ summary: fallback })
   }
