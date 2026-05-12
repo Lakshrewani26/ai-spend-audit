@@ -2,11 +2,39 @@ import { createClient } from "@supabase/supabase-js"
 import { runAudit } from "@/lib/auditEngine"
 import { notFound } from "next/navigation"
 import ShareButton from "@/components/ShareButton"
+import EmailCapture from "@/components/EmailCapture"
+import AuditSummary from "@/components/AuditSummary"
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const { data: audit } = await supabase
+    .from("audits")
+    .select("savings_monthly, savings_annual")
+    .eq("id", id)
+    .single()
+
+  if (!audit) return {}
+
+  return {
+    title: `I could save $${audit.savings_monthly}/mo on AI tools — AI Spend Audit`,
+    description: `My team could save $${audit.savings_annual}/year by optimizing our AI tool stack. Find out how much you could save.`,
+    openGraph: {
+      title: `I could save $${audit.savings_monthly}/mo on AI tools`,
+      description: `My team could save $${audit.savings_annual}/year by optimizing our AI tool stack.`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `I could save $${audit.savings_monthly}/mo on AI tools`,
+      description: `My team could save $${audit.savings_annual}/year by optimizing our AI tool stack.`,
+    },
+  }
+}
 
 export default async function AuditPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -86,6 +114,19 @@ export default async function AuditPage({ params }: { params: Promise<{ id: stri
             </p>
           </div>
         )}
+
+        <AuditSummary
+        tools={audit.tools}
+        useCase={audit.use_case}
+        teamSize={audit.team_size}
+        totalMonthlySavings={result.totalMonthlySavings}
+        results={result.results}
+        />
+
+        <EmailCapture
+        auditId={id}
+        monthlySavings={result.totalMonthlySavings}
+        />
 
         <div className="bg-white rounded-xl shadow p-6 mb-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
