@@ -73,3 +73,20 @@ Window is not defined error in ShareButton — fixed by moving window access int
 
 **Plan for tomorrow:** 
 Add email capture form on results page, store leads in Supabase, integrate Anthropic API for personalized audit summary, set up Resend for transactional emails.
+
+## Day 5 — 2026-05-11
+
+**Hours worked:** 
+5
+
+**What I did:** 
+Integrated Anthropic API for personalized audit summary with graceful fallback when API credits are unavailable. Built email capture form that stores leads in Supabase. Created leads API route with basic validation. Added Open Graph and Twitter Card meta tags to homepage and individual audit pages for proper social sharing previews. Fixed fallback summary to show correct message for zero savings audits.
+
+**What I learned:** 
+Learned that Open Graph tags only work on publicly deployed URLs, not localhost. Also learned to parse request body before the try/catch block so it's available in both success and error cases in API routes.
+
+**Blockers / what I'm stuck on:** 
+Anthropic API has no credits so fallback summary is being used. WhatsApp caches link previews so Open Graph changes don't show immediately.
+
+**Plan for tomorrow:** 
+Set up GitHub Actions CI, polish the UI to improve visual quality and mobile responsiveness, write all required documentation files and submit the project.
