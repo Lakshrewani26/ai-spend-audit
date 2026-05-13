@@ -5,12 +5,14 @@ AI Spend Audit is a free tool for startup founders and engineering managers to f
 ## Screenshots
 
 ### 1. Spend Input Form
-![Spend Input Form](./screenshots/form.png)
+![Spend Input Form](./screenshots/form_light.png)
+![Spend Input Form](./screenshots/form_dark.png)
 
 > Cold visitors enter their AI tools, plans, seats, and monthly spend — no login required.
 
 ### 2. Audit Results Page
-![Audit Results Page](./screenshots/results.png)
+![Audit Results Page](./screenshots/result_light.png)
+![Audit Results Page](./screenshots/result_dark.png)
 
 > Instant on-screen audit: per-tool breakdown, total monthly + annual savings hero, AI-generated personalized summary, email capture, and a shareable public URL.
 
@@ -40,7 +42,6 @@ Open [http://localhost:3000](http://localhost:3000).
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
-RESEND_API_KEY=your_resend_api_key
 ```
 
 ### Run Tests
@@ -74,3 +75,7 @@ App Router enables per-route React Server Components, which means the shareable 
 
 ### 5. AI summary as enhancement, not core — with graceful fallback
 The Anthropic API call for the personalized summary is non-blocking. If the API is unavailable, rate-limited, or returns an error, the audit falls back to a templated summary automatically. The full audit result — savings numbers, per-tool breakdown, email capture — works regardless. The trade-off is the fallback feels less personalized, but a broken page would be far worse.
+
+## Live URL
+
+🔗 [https://ai-spend-audit-kappa.vercel.app/](https://ai-spend-audit-kappa.vercel.app/)
