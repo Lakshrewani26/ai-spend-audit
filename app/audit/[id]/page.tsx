@@ -30,9 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: `I could save $${audit.savings_monthly}/mo on AI tools`,
       description: `My team could save $${audit.savings_annual}/year by optimizing our AI tool stack.`,
       type: "website",
+      url: `https://ai-spend-audit-kappa.vercel.app/audit/${id}`,
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title: `I could save $${audit.savings_monthly}/mo on AI tools`,
       description: `My team could save $${audit.savings_annual}/year by optimizing our AI tool stack.`,
     },
