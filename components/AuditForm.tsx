@@ -122,15 +122,27 @@ const handleSubmit = async () => {
 }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 bg-white rounded-xl shadow p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6">Enter your AI tool spend</h2>
+    <div className="card p-6">
+      <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
+        Enter your AI tool spend
+      </h2>
 
       {formData.tools.map((tool, index) => (
-        <div key={index} className="border rounded-lg p-4 mb-4 bg-gray-50">
+        <div
+          key={index}
+          className="rounded-xl p-4 mb-4 animate-fade-in"
+          style={{ background: "var(--bg-primary)", border: "1.5px solid var(--border)" }}
+        >
           <div className="flex justify-between items-center mb-3">
-            <span className="font-medium text-gray-700">Tool {index + 1}</span>
+            <span className="font-medium text-sm" style={{ color: "var(--text-secondary)" }}>
+              Tool {index + 1}
+            </span>
             {formData.tools.length > 1 && (
-              <button onClick={() => removeTool(index)} className="text-red-500 text-sm hover:underline">
+              <button
+                onClick={() => removeTool(index)}
+                className="text-sm px-3 py-1 rounded-lg transition-all hover:scale-105"
+                style={{ color: "var(--danger)", background: "rgba(239,68,68,0.1)" }}
+              >
                 Remove
               </button>
             )}
@@ -138,44 +150,41 @@ const handleSubmit = async () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">Tool</label>
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Tool</label>
               <select
-                className="w-full border rounded-md p-2 text-sm"
+                className="input-field"
                 value={tool.name}
                 onChange={e => updateTool(index, "name", e.target.value)}
               >
                 {TOOLS.map(t => <option key={t}>{t}</option>)}
               </select>
             </div>
-
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">Plan</label>
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Plan</label>
               <select
-                className="w-full border rounded-md p-2 text-sm"
+                className="input-field"
                 value={tool.plan}
                 onChange={e => updateTool(index, "plan", e.target.value)}
               >
                 {PLANS[tool.name].map(p => <option key={p}>{p}</option>)}
               </select>
             </div>
-
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">Seats</label>
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Seats</label>
               <input
                 type="number"
                 min={1}
-                className="w-full border rounded-md p-2 text-sm"
+                className="input-field"
                 value={tool.seats}
                 onChange={e => updateTool(index, "seats", Math.max(1, parseInt(e.target.value) || 1))}
               />
             </div>
-
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">Monthly Spend ($)</label>
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Monthly Spend ($)</label>
               <input
                 type="number"
                 min={0}
-                className="w-full border rounded-md p-2 text-sm"
+                className="input-field"
                 value={tool.monthlySpend}
                 onChange={e => updateTool(index, "monthlySpend", Math.max(0, parseFloat(e.target.value) || 0))}
               />
@@ -186,27 +195,31 @@ const handleSubmit = async () => {
 
       <button
         onClick={addTool}
-        className="w-full border-2 border-dashed border-gray-300 rounded-lg p-3 text-gray-500 hover:border-gray-400 hover:text-gray-600 text-sm mb-6"
+        className="w-full rounded-xl p-3 text-sm mb-6 transition-all hover:scale-[1.01]"
+        style={{
+          border: "1.5px dashed var(--border)",
+          color: "var(--text-muted)",
+          background: "transparent",
+        }}
       >
         + Add another tool
       </button>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div>
-          <label className="text-sm text-gray-600 mb-1 block">Team Size</label>
+          <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Team Size</label>
           <input
             type="number"
             min={1}
-            className="w-full border rounded-md p-2 text-sm"
+            className="input-field"
             value={formData.teamSize}
             onChange={e => setFormData(prev => ({ ...prev, teamSize: Math.max(1, parseInt(e.target.value) || 1) }))}
           />
         </div>
-
         <div>
-          <label className="text-sm text-gray-600 mb-1 block">Primary Use Case</label>
+          <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-muted)" }}>Primary Use Case</label>
           <select
-            className="w-full border rounded-md p-2 text-sm"
+            className="input-field"
             value={formData.useCase}
             onChange={e => setFormData(prev => ({ ...prev, useCase: e.target.value }))}
           >
@@ -218,9 +231,9 @@ const handleSubmit = async () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="w-full bg-black text-white rounded-lg p-3 font-medium hover:bg-gray-800 disabled:opacity-50"
+        className="btn-primary w-full"
       >
-      {loading ? "Generating..." : "Generate My Audit →"}
+        {loading ? "Generating..." : "Generate My Audit →"}
       </button>
     </div>
   )

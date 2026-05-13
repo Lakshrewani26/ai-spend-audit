@@ -5,6 +5,8 @@ import ShareButton from "@/components/ShareButton"
 import EmailCapture from "@/components/EmailCapture"
 import AuditSummary from "@/components/AuditSummary"
 import Link from "next/link"
+import Background from "@/components/Background"
+import ThemeToggle from "@/components/ThemeToggle"
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -51,96 +53,71 @@ export default async function AuditPage({ params }: { params: Promise<{ id: stri
   const result = runAudit(audit.tools, audit.team_size, audit.use_case)
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
-      <div className="max-w-2xl mx-auto">
+    <main className="min-h-screen relative" style={{ background: "var(--bg-primary)" }}>
+      <Background />
+      <ThemeToggle />
+      <div className="relative z-10 max-w-2xl mx-auto px-4 py-16">
 
-        <div className="bg-white rounded-xl shadow p-8 mb-6 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            ${result.totalMonthlySavings.toFixed(0)}/mo
-          </h1>
-          <p className="text-gray-500 text-lg">potential monthly savings</p>
-          <p className="text-2xl font-semibold text-green-600 mt-2">
-            ${result.totalAnnualSavings.toFixed(0)} saved per year
-          </p>
+        <div className="card p-8 mb-6 text-center animate-slide-up" style={{ background: "linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%)" }}>
+          <p className="text-white/70 text-sm font-medium mb-2 uppercase tracking-widest">Potential Monthly Savings</p>
+          <h1 className="text-6xl font-bold text-white mb-1">${result.totalMonthlySavings.toFixed(0)}<span className="text-3xl">/mo</span></h1>
+          <p className="text-white/80 text-xl mt-2">${result.totalAnnualSavings.toFixed(0)} saved per year</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Tool by Tool Breakdown
-          </h2>
+        <div className="card p-6 mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>Tool by Tool Breakdown</h2>
           {result.results.map((r, i) => (
-            <div key={i} className="border-b last:border-0 py-4">
+            <div key={i} className="py-4 transition-all hover:translate-x-1" style={{ borderBottom: i < result.results.length - 1 ? "1px solid var(--border)" : "none" }}>
               <div className="flex justify-between items-start mb-1">
                 <div>
-                  <span className="font-medium text-gray-800">{r.tool}</span>
-                  <span className="text-sm text-gray-500 ml-2">{r.plan}</span>
+                  <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{r.tool}</span>
+                  <span className="text-xs ml-2 px-2 py-0.5 rounded-full" style={{ background: "var(--accent-light)", color: "var(--accent)" }}>{r.plan}</span>
                 </div>
                 {r.savings > 0 ? (
-                  <span className="text-green-600 font-semibold">
-                    Save ${r.savings.toFixed(0)}/mo
-                  </span>
+                  <span className="font-bold text-sm" style={{ color: "var(--success)" }}>Save ${r.savings.toFixed(0)}/mo</span>
                 ) : (
-                  <span className="text-gray-400 text-sm">Optimal</span>
+                  <span className="text-xs px-2 py-1 rounded-full" style={{ background: "var(--success-light)", color: "var(--success)" }}>Optimal ✓</span>
                 )}
               </div>
-              <p className="text-sm text-gray-600">{r.reason}</p>
+              <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>{r.reason}</p>
               {r.savings > 0 && (
-                <p className="text-sm font-medium text-blue-600 mt-1">
-                  {r.recommendation}
-                </p>
+                <p className="text-sm font-medium mt-1" style={{ color: "var(--accent)" }}>{r.recommendation}</p>
               )}
             </div>
           ))}
         </div>
 
         {result.totalMonthlySavings > 500 && (
-          <div className="bg-black text-white rounded-xl p-6 mb-6">
-            <h3 className="text-xl font-bold mb-2">
-              You could save even more with Credex
-            </h3>
-            <p className="text-gray-300 mb-4">
-              Credex sells discounted AI credits — get the same tools for less.
-            </p>
-            <a href="https://credex.rocks" className="bg-white text-black px-6 py-2 rounded-lg font-medium hover:bg-gray-100 inline-block">Book a Credex Consultation</a>
+          <div className="card p-6 mb-6 animate-slide-up" style={{ animationDelay: "0.2s", background: "linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%)", border: "1px solid rgba(99,102,241,0.3)" }}>
+            <h3 className="text-xl font-bold text-white mb-2">Save even more with Credex ✦</h3>
+            <p className="text-white/60 mb-4 text-sm">Credex sells discounted AI credits — get the same tools for less.</p>
+            <a href="https://credex.rocks" className="inline-block px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:scale-105" style={{ background: "var(--accent)", color: "white" }}>Book a Credex Consultation</a>
           </div>
         )}
 
         {result.totalMonthlySavings === 0 && (
-          <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-6 text-center">
-            <h3 className="text-xl font-bold text-green-800 mb-2">
-              You are spending well!
-            </h3>
-            <p className="text-green-700">
-              Your current AI stack looks optimized. We will notify you when new savings apply.
-            </p>
+          <div className="card p-6 mb-6 text-center animate-slide-up" style={{ animationDelay: "0.2s", background: "var(--success-light)", border: "1px solid var(--success)" }}>
+            <h3 className="text-xl font-bold mb-2" style={{ color: "var(--success)" }}>You are spending well! ✓</h3>
+            <p className="text-sm" style={{ color: "var(--success)" }}>Your current AI stack looks optimized. We will notify you when new savings apply.</p>
           </div>
         )}
 
-        <AuditSummary
-        tools={audit.tools}
-        useCase={audit.use_case}
-        teamSize={audit.team_size}
-        totalMonthlySavings={result.totalMonthlySavings}
-        results={result.results}
-        />
+        <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+          <AuditSummary tools={audit.tools} useCase={audit.use_case} teamSize={audit.team_size} totalMonthlySavings={result.totalMonthlySavings} results={result.results} />
+        </div>
 
-        <EmailCapture
-        auditId={id}
-        monthlySavings={result.totalMonthlySavings}
-        />
+        <div className="animate-slide-up" style={{ animationDelay: "0.4s" }}>
+          <EmailCapture auditId={id} monthlySavings={result.totalMonthlySavings} />
+        </div>
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
-            Share your results
-          </h3>
-          <p className="text-sm text-gray-500 mb-3">
-            Share this link — personal details are not included.
-          </p>
+        <div className="card p-6 mb-6 animate-slide-up" style={{ animationDelay: "0.5s" }}>
+          <h3 className="text-lg font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Share your results</h3>
+          <p className="text-sm mb-3" style={{ color: "var(--text-muted)" }}>Share this link — personal details are not included.</p>
           <ShareButton id={id} />
         </div>
 
-        <Link href="/" className="block text-center text-gray-500 hover:text-gray-700 text-sm">Run another audit</Link>
-        
+        <Link href="/" className="block text-center text-sm transition-all hover:scale-105" style={{ color: "var(--text-muted)" }}>Run another audit</Link>
+
       </div>
     </main>
   )
