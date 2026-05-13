@@ -90,3 +90,37 @@ Anthropic API has no credits so fallback summary is being used. WhatsApp caches 
 
 **Plan for tomorrow:** 
 Set up GitHub Actions CI, polish the UI to improve visual quality and mobile responsiveness, write all required documentation files and submit the project.
+
+## Day 6 — 2026-05-12
+
+**Hours worked:**
+4.5
+
+**What I did:**
+Wrote all required documentation files — ARCHITECTURE.md, REFLECTION.md, ECONOMICS.md, GTM.md, LANDING_COPY.md, METRICS.md, PRICING_DATA.md, PROMPTS.md, TESTS.md. Polished the UI significantly — improved visual hierarchy on the results page, added dark mode support via ThemeToggle, improved mobile responsiveness across form and results pages. Set up GitHub Actions CI workflow with lint and test steps.
+
+**What I learned:**
+Learned how to structure a Mermaid system diagram inside ARCHITECTURE.md that renders inline on GitHub. Writing the ECONOMICS.md forced me to actually think through unit economics — what a converted lead is worth to Credex and what conversion rates make the tool profitable.
+
+**Blockers / what I'm stuck on:**
+CI pipeline kept failing — lint errors in AuditSummary and the audit page that didn't show up locally. Had to fix those before the workflow would pass.
+
+**Plan for tomorrow:**
+Complete README with screenshots and decisions section, finish DEVLOG, conduct user interviews, and do a final end-to-end check on the deployed Vercel URL before submission.
+
+## Day 7 — 2026-05-13
+
+**Hours worked:**
+3
+
+**What I did:**
+Completed README.md with screenshots, 5 trade-off decisions, quick start instructions, and live Vercel URL. Added screenshots folder with light and dark mode screenshots for both the form and results pages. Conducted user interviews. Did final checks on the deployed URL — verified form persistence, shareable audit links, OG tags, and email capture flow.
+
+**What I learned:**
+Learned that setState called synchronously inside a useEffect body triggers cascading renders and fails strict lint rules. Fixed ThemeToggle by moving initial state into a useState lazy initializer and keeping the effect only for DOM updates.
+
+**Blockers / what I'm stuck on:**
+GitHub Actions CI kept failing across multiple attempts — the ThemeToggle component was calling setState directly inside useEffect which ESLint flagged as an error. Tried disabling the lint rule and using setTimeout as a workaround before ultimately fixing it properly with a lazy useState initializer.
+
+**Plan for tomorrow:**
+N/A — submission day.
